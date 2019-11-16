@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Foodies.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Foodies.DataAccess
@@ -9,5 +10,7 @@ namespace Foodies.DataAccess
             : base(options)
         {
         }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
