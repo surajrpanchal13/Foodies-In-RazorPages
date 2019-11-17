@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Foodies</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
@@ -27,8 +27,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white dropdown-toggle" href="#" id="adminMenu" data-toggle="dropdown">Admin</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item text-white" asp-page="/Admin/Category/Index">Category</a>
+                                <a class="dropdown-item text-white" asp-page="/Admin/FoodType/Index">Food Type</a>
+                                <a class="dropdown-item text-white" asp-page="/Admin/MenuType/Index">Menu Type</a>
+                                <a class="dropdown-item text-white" asp-page="/Admin/User/Index">Users</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
