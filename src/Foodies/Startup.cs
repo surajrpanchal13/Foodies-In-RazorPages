@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Foodies.DataAccess;
+using Foodies.DataAccess.Data.IRepository;
+using Foodies.DataAccess.Data.Repository;
 
 namespace Foodies
 {
@@ -27,10 +29,12 @@ namespace Foodies
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             services.AddMvc(mvc => mvc.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //services.AddRazorPages().AddRazorRuntimeCompilation();
         }
