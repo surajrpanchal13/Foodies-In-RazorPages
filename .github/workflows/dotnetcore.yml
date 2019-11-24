@@ -16,3 +16,12 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
       working-directory: ./src/Foodies/
+    - name: Deploy project
+      if: success()
+      uses: surajrpanchal13/Foodies-In-RazorPages@v1
+      with:
+          target_branch: master
+          build_dir: public
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
