@@ -16,7 +16,5 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
       working-directory: ./src/Foodies/
-    - name: GitHub Pages Deploy
-      uses: maxheld83/ghpages@v0.2.1
 
       
