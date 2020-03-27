@@ -32,7 +32,8 @@ namespace Foodies
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc(mvc => mvc.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
+                .AddRazorRuntimeCompilation();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 

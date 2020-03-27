@@ -4,14 +4,16 @@ using Foodies.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Foodies.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200322090125_addMenuItemTableToDb")]
+    partial class addMenuItemTableToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,6 +69,9 @@ namespace Foodies.DataAccess.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("DisplayId")
+                        .HasColumnType("int");
+
                     b.Property<int>("FoodTypeId")
                         .HasColumnType("int");
 
@@ -82,7 +87,7 @@ namespace Foodies.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("DisplayId");
 
                     b.HasIndex("FoodTypeId");
 
@@ -293,9 +298,7 @@ namespace Foodies.DataAccess.Migrations
                 {
                     b.HasOne("Foodies.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DisplayId");
 
                     b.HasOne("Foodies.Models.FoodType", "FoodType")
                         .WithMany()
