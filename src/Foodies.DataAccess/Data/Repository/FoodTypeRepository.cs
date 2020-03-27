@@ -9,30 +9,29 @@ using System.Text;
 
 namespace Foodies.DataAccess.Data.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class FoodTypeRepository : Repository<FoodType>, IFoodTypeRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public CategoryRepository(ApplicationDbContext db) : base(db)
+        public FoodTypeRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public IEnumerable<SelectListItem> GetCategoryListForDropDown()
+        public IEnumerable<SelectListItem> GetFoodTypeListForDropDown()
         {
-            return _db.Categories.Select(s => new SelectListItem
+            return _db.FoodTypes.Select(s => new SelectListItem
             {
                 Text = s.Name,
                 Value = s.Id.ToString()
             });
         }
 
-        public void Update(Category category)
+        public void Update(FoodType foodType)
         {
-            Category updateCategory = _db.Categories.FirstOrDefault(f => f.Id == category.Id);
+            FoodType updateFoodType = _db.FoodTypes.FirstOrDefault(f => f.Id == foodType.Id);
 
-            updateCategory.Name = category.Name;
-            updateCategory.DisplayOrder = category.DisplayOrder;
+            updateFoodType.Name = foodType.Name;
 
             _db.SaveChanges();
         }

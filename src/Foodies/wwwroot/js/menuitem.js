@@ -5,27 +5,29 @@ $(document).ready(function () {
 });
 
 function loadList() {
-    dataTable = $('#dt-caregory').DataTable({
+    dataTable = $('#dt-menuitem').DataTable({
         "ajax": {
-            "url": "/api/category",
+            "url": "/api/menuitem",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-            { "data": "name", "width": "40%" },
-            { "data": "displayOrder", "width": "30%" },
+            { "data": "name", "width": "20%" },
+            { "data": "price", "width": "15%" },
+            { "data": "category.name", "width": "15%" },
+            { "data": "foodType.name", "width": "15%" }, 
             {
                 "data": "id",
                 "render": function (data) {
                     return ` <div class="text-center">
-                                <a href="/Admin/category/upsert?id=${data}" class="btn btn-success text-white" style="cussor:pointer; width:100px;">
+                                <a href="/Admin/menuitem/upsert?id=${data}" class="btn btn-success text-white" style="cussor:pointer; width:100px;">
                                     <i class="far fa-edit"></i> Edit
                                 </a>
-                                <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;" onclick=Delete('/api/category/${data}')>
+                                <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;" onclick=Delete('/api/menuitem/${data}')>
                                     <i class="far fa-trash-alt"></i> Delete
                                 </a>
                     </div>`;
-                }, "width": "30%"
+                }, "width": "20%"
             }
         ],
         "language": {

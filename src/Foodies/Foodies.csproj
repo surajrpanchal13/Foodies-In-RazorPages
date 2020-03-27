@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UserSecretsId>aspnet-Foodies-57110921-70BA-450C-8562-73F8A665A538</UserSecretsId>
+    <StartupObject>Foodies.Program</StartupObject>
   </PropertyGroup>
 
 
@@ -26,12 +27,10 @@
 
 
   <ItemGroup>
-    <Folder Include="Pages\Admin\FoodType\" />
-    <Folder Include="Pages\Admin\MenuType\" />
     <Folder Include="Pages\Admin\User\" />
     <Folder Include="Pages\Customer\Cart\" />
     <Folder Include="Pages\Customer\Home\" />
-    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\menuitems\" />
   </ItemGroup>
 
 </Project>

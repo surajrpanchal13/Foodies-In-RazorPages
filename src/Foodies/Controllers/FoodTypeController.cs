@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Foodies.DataAccess.Data.IRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Taste.Controllers
+namespace Foodies.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-    public class CategoryController : Controller
+    public class FoodTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public FoodTypeController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -20,23 +22,21 @@ namespace Taste.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var categoryList = _unitOfWork.Category.GetAll().ToList();
-            return Json(new { data = categoryList });
+            var foodTypeList = _unitOfWork.FoodType.GetAll().ToList();
+            return Json(new { data = foodTypeList });
         }
-
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
+            var objFromDb = _unitOfWork.FoodType.GetFirstOrDefault(u => u.Id == id);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
-            _unitOfWork.Category.Remove(objFromDb);
+            _unitOfWork.FoodType.Remove(objFromDb);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete successful" });
         }
-
     }
 }
