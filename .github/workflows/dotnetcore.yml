@@ -16,7 +16,3 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
       working-directory: ./src/Foodies/
-    - name: GitHub Action for Heroku
-      uses: actions/heroku@1.0.0
-      if: success()
-      
