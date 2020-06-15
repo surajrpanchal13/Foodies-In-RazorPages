@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Foodies.DataAccess;
 using Foodies.DataAccess.Data.IRepository;
 using Foodies.DataAccess.Data.Repository;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Foodies.Utility;
+using Microsoft.AspNetCore.Identity;
 
 namespace Foodies
 {
@@ -26,18 +28,22 @@ namespace Foodies
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddSingleton<IEmailSender, EmailSender>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddMvc(mvc => mvc.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
-                .AddRazorRuntimeCompilation();
+            //services.AddMvc(mvc => mvc.EnableEndpointRouting = false)
+            //    .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0)
+            //    .AddRazorRuntimeCompilation();
 
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
-            //services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,17 +64,18 @@ namespace Foodies
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            //app.UseRouting();
+            app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMvc();
+            //app.UseMvc();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapRazorPages();
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
